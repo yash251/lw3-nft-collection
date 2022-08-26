@@ -78,4 +78,10 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
         (bool sent, ) = _owner.call{value: amount}("");
         require(sent, "Failed to send ether");
     }
+
+    // function to receive ether. msg.data must be empty
+    receive() external payable {}
+
+    // fallback function is called when msg.data is not empty
+    fallback() external payable {}
 }
