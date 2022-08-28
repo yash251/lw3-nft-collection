@@ -17,6 +17,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
 
     modifier onlyWhenNotPaused() {
         require(!_paused, "Contract currently paused");
+        _;
     }
 
     constructor(string memory baseURI, address whitelistContract)
