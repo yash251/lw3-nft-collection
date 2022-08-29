@@ -7,6 +7,16 @@ import Web3Modal from 'web3modal'
 // import { abi, NFT_CONTRACT_ADDRESS } from '../constants/index'
 
 export default function Home() {
+
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [presaleStarted, setPresaleStarted] = useState(false);
+  const [presaleEnded, setPresaleEnded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+  const [tokenIdsMinted, setTokenIdsMinted] = useState("0");
+
+  const web3ModalRef = useRef(); // creating a reference to the Web3 Modal which persists as long as the page is open
+  
   return (
     <div className={styles.container}>
       <Head>
