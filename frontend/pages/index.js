@@ -135,6 +135,30 @@ export default function Home() {
     }
   };
 
+  const checkIfPresaleEnded = async () => {
+    try {
+      const provider = await getProviderOrSigner();
+
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+
+      const _presaleEnded = await nftContract.presaleEnded();
+
+      const hasEnded = _presaleEnded.lt(Math.floor(Date.now() / 1000));
+
+      if (hasEnded) {
+        setPresaleEnded(true);
+      }
+      else {
+        setPresaleEnded(false);
+      }
+      return hasEnded;
+    }
+    catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
