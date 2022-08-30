@@ -107,13 +107,33 @@ export default function Home() {
 
       await tx.wait();
       setLoading(false);
-      
+
       await checkIfPresaleStarted();
     }
     catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  const checkIfPresaleStarted = async () => {
+    try {
+      const provider = await getProviderOrSigner();
+
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+
+      const _presaleStarted = await nftContract.presaleStarted();
+
+      if (!_presaleStarted) {
+        await getOwner();
+      }
+      setPresaleStarted(_presaleStarted);
+      return _presaleStarted;
+    }
+    catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
 
   return (
     <div className={styles.container}>
