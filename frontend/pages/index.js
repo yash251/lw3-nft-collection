@@ -180,6 +180,21 @@ export default function Home() {
     }
   };
 
+  const getTokenIdsMinted = async () => {
+    try {
+      const provider = await getProviderOrSigner();
+
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+
+      const _tokenIds = await nftContract.tokenIds();
+
+      setTokenIdsMinted(_tokenIds.toString()); //need to convert the Big Number to a string
+    }
+    catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
