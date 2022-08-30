@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import React, { useState, useEffect, useRef } from 'react'
 import { Contract, providers, utils } from 'ethers'
 import Web3Modal from 'web3modal'
-// import { abi, NFT_CONTRACT_ADDRESS } from '../constants/index'
+import { abi, NFT_CONTRACT_ADDRESS } from '../constants/index'
 
 export default function Home() {
 
