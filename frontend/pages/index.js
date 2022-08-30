@@ -38,13 +38,13 @@ export default function Home() {
     try {
       const signer = await getProviderOrSigner(true);
 
-      const whitelistContract = new Contract(
+      const nftContract = new Contract(
         NFT_CONTRACT_ADDRESS,
         abi,
         signer
       );
 
-      const tx = await whitelistContract.presaleMint({
+      const tx = await nftContract.presaleMint({
         value: utils.parseEther("0.01"),
       });
       setLoading(true);
@@ -62,13 +62,13 @@ export default function Home() {
     try {
       const signer = await getProviderOrSigner(true);
 
-      const whitelistContract = new Contract(
+      const nftContract = new Contract(
         NFT_CONTRACT_ADDRESS,
         abi,
         signer
       );
 
-      const tx = await whitelistContract.mint({
+      const tx = await nftContract.mint({
         value: utils.parseEther("0.01"),
       });
       setLoading(true);
@@ -96,13 +96,13 @@ export default function Home() {
     try {
       const signer = await getProviderOrSigner(true);
 
-      const whitelistContract = new Contract(
+      const nftContract = new Contract(
         NFT_CONTRACT_ADDRESS,
         abi,
         signer
       );
 
-      const tx = await whitelistContract.startPresale();
+      const tx = await nftContract.startPresale();
       setLoading(true);
 
       await tx.wait();
