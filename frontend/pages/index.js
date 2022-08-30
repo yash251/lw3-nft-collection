@@ -92,6 +92,29 @@ export default function Home() {
     }
   };
 
+  const startPresale = async () => {
+    try {
+      const signer = await getProviderOrSigner(true);
+
+      const whitelistContract = new Contract(
+        NFT_CONTRACT_ADDRESS,
+        abi,
+        signer
+      );
+
+      const tx = await whitelistContract.startPresale();
+      setLoading(true);
+
+      await tx.wait();
+      setLoading(false);
+      
+      await checkIfPresaleStarted();
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
