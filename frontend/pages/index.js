@@ -34,6 +34,30 @@ export default function Home() {
     return web3Provider;
   };
 
+  const presaleMint = async () => {
+    try {
+      const signer = await getProviderOrSigner(true);
+
+      const whitelistContract = new Contract(
+        NFT_CONTRACT_ADDRESS,
+        abi,
+        signer
+      );
+
+      const tx = await whitelistContract.presaleMint({
+        value: utils.parseEther("0.01"),
+      });
+      setLoading(true);
+
+      await tx.wait();
+      setLoading(false);
+      window.alert("You have successfully minted a Crypto Dev!");
+    }
+    catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
