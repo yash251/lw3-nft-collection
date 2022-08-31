@@ -224,7 +224,7 @@ export default function Home() {
         await getTokenIdsMinted();
       }, 5 * 1000);
     }
-  }, []);
+  }, [walletConnected]);
 
   const renderButton = () => {
     if (!walletConnected) {
