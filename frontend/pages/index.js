@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import React, { useState, useEffect, useRef } from 'react'
 import { Contract, providers, utils } from 'ethers'
@@ -14,7 +13,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [tokenIdsMinted, setTokenIdsMinted] = useState("0");
-
+  
   const web3ModalRef = useRef(); // creating a reference to the Web3 Modal which persists as long as the page is open
 
   const getProviderOrSigner = async (needSigner = false) => {
@@ -164,13 +163,13 @@ export default function Home() {
       const provider = await getProviderOrSigner();
 
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
-
+      
       const _owner = await nftContract.owner();
-
+      
       const signer = await getProviderOrSigner(true);
-
+      
       const address = await signer.getAddress();
-
+      
       if (address.toLowerCase() === _owner.toLowerCase()) {
         setIsOwner(true);
       }
@@ -185,9 +184,9 @@ export default function Home() {
       const provider = await getProviderOrSigner();
 
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
-
+      
       const _tokenIds = await nftContract.tokenIds();
-
+      
       setTokenIdsMinted(_tokenIds.toString()); //need to convert the Big Number to a string
     }
     catch (error) {
@@ -213,7 +212,7 @@ export default function Home() {
       // Set an interval which gets called every 5 seconds to check presale has ended
       const presaleEndedInterval = setInterval(async function () {
         const _presaleStarted = await checkIfPresaleStarted();
-        if (!_presaleStarted) {
+        if (_presaleStarted) {
           const _presaleEnded = await checkIfPresaleEnded();
           if (_presaleEnded) {
             clearInterval(presaleEndedInterval);
@@ -227,7 +226,7 @@ export default function Home() {
     }
   }, [walletConnected]);
 
-  const renderButton = async () => {
+  const renderButton = () => {
     if (!walletConnected) {
       return (
         <button onClick={connectWallet} className={styles.button}>
@@ -284,7 +283,7 @@ export default function Home() {
         <title>Crypto-Devs</title>
         <meta name="description" content="NFT Crypto Devs" />
         <link rel="icon" href="/favicon.ico" />
-      </Head> 
+      </Head>
       <div className={styles.main}>
         <div>
           <h1 className={styles.title}>Welcome to Crypto-Devs!</h1>
@@ -294,7 +293,7 @@ export default function Home() {
           <div className={styles.description}>
             {tokenIdsMinted} / 20 have been minted
           </div>
-          {() => renderButton()}
+          {renderButton()}
         </div>
         <div>
           <img className={styles.image} src='./cryptodevs/0.svg' />
